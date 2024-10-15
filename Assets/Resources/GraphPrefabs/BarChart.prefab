@@ -1,0 +1,150 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6837505700262749386
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2431012394055211213}
+  - component: {fileID: 3675772808457289146}
+  - component: {fileID: 3448996085359199084}
+  - component: {fileID: 2816220013250662235}
+  m_Layer: 0
+  m_Name: BarChart
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2431012394055211213
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6837505700262749386}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 25, y: 15}
+  m_SizeDelta: {x: -90, y: -70}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &3675772808457289146
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6837505700262749386}
+  m_CullTransparentMesh: 0
+--- !u!114 &3448996085359199084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6837505700262749386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60b19526967868841824209681fb4e45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  legendView: {fileID: 0}
+  gridConfig:
+    verticalLinesCount: 0
+    horizontalLinesCount: 3
+    verticalLinesConfig:
+      thickness: 1
+      color: {r: 1, g: 1, b: 1, a: 1}
+      dashed: 0
+      dashLength: 0
+      dashSpacing: 0
+    horizontalLinesConfig:
+      thickness: 1
+      color: {r: 1, g: 1, b: 1, a: 0.4745098}
+      dashed: 0
+      dashLength: 0
+      dashSpacing: 0
+  frameConfig:
+    drawLeftLine: 1
+    drawRightLine: 1
+    drawTopLine: 1
+    drawBottomLine: 1
+    linesConfig:
+      thickness: 1
+      color: {r: 1, g: 1, b: 1, a: 0.4745098}
+      dashed: 0
+      dashLength: 0
+      dashSpacing: 0
+  axisConfig:
+    verticalAxisConfig:
+      labelsConfig:
+        labelSize: 24
+        labelColor: {r: 1, g: 1, b: 1, a: 0.9411765}
+        labelMargin: 10
+      bounds:
+        min: 0
+        max: 10000
+        minAutoValue: 1
+        maxAutoValue: 1
+      axisLabelPrefab: {fileID: 1168138860890990371, guid: 9955d808937a33548b3f245d3b2a0cee, type: 3}
+      labelsCount: 5
+      labelsAlignment: 0
+      drawStartValue: 1
+      drawEndValue: 1
+      valueFormatterConfig:
+        valueDecimalPlaces: 1
+        customValues: []
+    horizontalAxisConfig:
+      labelsConfig:
+        labelSize: 18
+        labelColor: {r: 1, g: 1, b: 1, a: 0.9411765}
+        labelMargin: 10
+      bounds:
+        min: 0
+        max: 100
+        minAutoValue: 1
+        maxAutoValue: 1
+      axisLabelPrefab: {fileID: 1168138860890990371, guid: 9955d808937a33548b3f245d3b2a0cee, type: 3}
+      valueFormatterConfig:
+        customValues: []
+      labelsAlignment: 0
+  config:
+    barWidth: 100
+    barSpacing: 20
+    innerBarSpacing: 6
+    sizingMethod: 0
+    barPrefab: {fileID: 114628246049245166, guid: feabaeea9bcf02d469247af4dfe6062c, type: 3}
+    popupPrefab: {fileID: 6196819270328144897, guid: 3b4db65b1ddb65f4eac50f1a290b417c, type: 3}
+  data:
+    dataSets: []
+  HVset: 0
+--- !u!114 &2816220013250662235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6837505700262749386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86a92a41ecd8d674092c5e94674d1eee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barChart: {fileID: 3448996085359199084}
+  config:
+    barWidth: 40
+    barSpacing: 20
+    innerBarSpacing: 6
+    sizingMethod: 0
+    barPrefab: {fileID: 0}
+    popupPrefab: {fileID: 0}

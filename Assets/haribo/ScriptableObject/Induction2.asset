@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94a68be3c31f958429bd7e38ae9cec5a, type: 3}
+  m_Name: Induction2
+  m_EditorClassIdentifier: 
+  itemName: Induction2
+  itemID: 5
+  itemIcon: {fileID: 21300000, guid: 8b1c0517f221b844095bb468cf1455c2, type: 3}
