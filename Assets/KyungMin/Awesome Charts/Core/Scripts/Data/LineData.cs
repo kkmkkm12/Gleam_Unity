@@ -48,5 +48,12 @@ namespace AwesomeCharts {
             return HasAnyData () ? DataSets.Select ((dataSet) => dataSet.GetMaxValue ()).Max () :
                 0;
         }
+        public void AddDataSet(LineDataSet dataSet)
+        {
+            if (dataSet != null)
+            {
+                dataSets.Add(dataSet);
+            }
+        }
     }
 }
