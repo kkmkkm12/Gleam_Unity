@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class TransitCommunicationObstacleScript : MonoBehaviour
@@ -59,7 +60,7 @@ public class TransitCommunicationObstacleScript : MonoBehaviour
         StartCoroutine(vehicleDataCenter.TransitCommunicationObstacleDataReceive(null, null, null, null));
     }
 
-    public void HandleReceivedData(string response)
+    public void HandleReceivedData(UnityWebRequest response)
     {
         Debug.Log("데이터 받고나서 파싱 해야함.");
     }

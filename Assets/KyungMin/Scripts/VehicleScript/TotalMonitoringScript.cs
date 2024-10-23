@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class TotalMonitoringScript : MonoBehaviour
@@ -235,7 +236,7 @@ public class TotalMonitoringScript : MonoBehaviour
                 secondOfficeCode = "2200";
                 break;
             default:
-                secondOfficeCode = null;
+                secondOfficeCode = string.Empty;
                 break;
         }
 
@@ -247,7 +248,7 @@ public class TotalMonitoringScript : MonoBehaviour
         StartCoroutine(vehicleDataCenter.TotalMoniterDataReceive(secondOfficeCode));
     }
 
-    public void HandleReceivedData(string response)
+    public void HandleReceivedData(UnityWebRequest response)
     {
         Debug.Log("데이터 받고나서 파싱 해야함.");
     }

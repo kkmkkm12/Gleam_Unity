@@ -23,7 +23,9 @@ public class VehicleDataCenter : MonoBehaviour
 
     public IEnumerator TotalMoniterDataReceive(string officeCode)   //종합상황 모니터링
     {
+        Debug.Log("데이터 줘! " + officeCode);
         UnityWebRequest request = UnityWebRequest.Get($"{GameManager.Instance.serverURL}/car/TotalMoniter?OfficeCode={officeCode}");       ///car/carView?distance={searchDistance}
+
 
         request.SetRequestHeader("Client-Type", "Unity"); //헤더 추가
         yield return request.SendWebRequest();
@@ -34,9 +36,9 @@ public class VehicleDataCenter : MonoBehaviour
         }
         else
         {
-            string response = request.downloadHandler.text;
+            //string response = request.downloadHandler.text;
 
-            FindObjectOfType<TotalMonitoringScript>().HandleReceivedData(response);
+            FindObjectOfType<TotalMonitoringScript>().HandleReceivedData(request);
         }
     }
 
@@ -53,9 +55,9 @@ public class VehicleDataCenter : MonoBehaviour
         }
         else
         {
-            string response = request.downloadHandler.text;
+            //string response = request.downloadHandler.text;
 
-            FindObjectOfType<TransitCommunicationObstacleScript>().HandleReceivedData(response);
+            FindObjectOfType<TransitCommunicationObstacleScript>().HandleReceivedData(request);
         }
     }
 
@@ -72,9 +74,9 @@ public class VehicleDataCenter : MonoBehaviour
         }
         else
         {
-            string response = request.downloadHandler.text;
+            //string response = request.downloadHandler.text;
 
-            FindObjectOfType<RegionTimeQuantityScript>().HandleReceivedData(response);
+            FindObjectOfType<RegionTimeQuantityScript>().HandleReceivedData(request);
         }
     }
 
@@ -91,9 +93,9 @@ public class VehicleDataCenter : MonoBehaviour
         }
         else
         {
-            string response = request.downloadHandler.text;
+            //string response = request.downloadHandler.text;
 
-            FindObjectOfType<ArriveQuantityScript>().HandleReceivedData(response);
+            FindObjectOfType<ArriveQuantityScript>().HandleReceivedData(request);
         }
     }
 
@@ -110,9 +112,9 @@ public class VehicleDataCenter : MonoBehaviour
         }
         else
         {
-            string response = request.downloadHandler.text;
+            //string response = request.downloadHandler.text;
 
-            FindObjectOfType<OperationDetailScript>().HandleReceivedData(response);
+            FindObjectOfType<OperationDetailScript>().HandleReceivedData(request);
         }
     }
 }
