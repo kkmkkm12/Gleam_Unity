@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class TransitCommunicationObstacleScript : MonoBehaviour
@@ -59,7 +60,7 @@ public class TransitCommunicationObstacleScript : MonoBehaviour
         StartCoroutine(vehicleDataCenter.TransitCommunicationObstacleDataReceive("2024-10-15", "2024-10-16", "0300", "0200"));
     }
 
-    public void HandleReceivedData(string response)
+    public void HandleReceivedData(UnityWebRequest response)
     {
         Debug.Log("������ �ް����� �Ľ� �ؾ���.");
     }

@@ -21,12 +21,13 @@ public class VehicleDataCenter : MonoBehaviour
 
     }
 
-    public IEnumerator TotalMoniterDataReceive(string officeCode)   //Á¾ÇÕ»óÈ² ¸ð´ÏÅÍ¸µ
+    public IEnumerator TotalMoniterDataReceive(string officeCode)   //ï¿½ï¿½ï¿½Õ»ï¿½È² ï¿½ï¿½ï¿½ï¿½Í¸ï¿½
     {
-        Debug.Log($"¼­¹ö¿¡ ¿äÃ»ÇÒ officeCode: {officeCode}");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½! " + officeCode);
         UnityWebRequest request = UnityWebRequest.Get($"{GameManager.Instance.serverURL}/car/TotalMoniter?OfficeCode={officeCode}");       ///car/carView?distance={searchDistance}
 
-        request.SetRequestHeader("Client-Type", "Unity"); //Çì´õ Ãß°¡
+
+        request.SetRequestHeader("Client-Type", "Unity"); //ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
@@ -35,18 +36,17 @@ public class VehicleDataCenter : MonoBehaviour
         }
         else
         {
-            string response = request.downloadHandler.text;
-            Debug.Log("TotalMoniterDataReceive: " + response);
+            //string response = request.downloadHandler.text;
 
-            FindObjectOfType<TotalMonitoringScript>().HandleReceivedData(response);
+            FindObjectOfType<TotalMonitoringScript>().HandleReceivedData(request);
         }
     }
 
-    public IEnumerator TransitCommunicationObstacleDataReceive(string startDate, string endDate, string departOfficeCode, string arriveOfficeCode)  //¿î¼Û¼ÒÅë Àå¾ÖÇöÈ²
+    public IEnumerator TransitCommunicationObstacleDataReceive(string startDate, string endDate, string departOfficeCode, string arriveOfficeCode)  //ï¿½ï¿½Û¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½È²
     {
         UnityWebRequest request = UnityWebRequest.Get($"{GameManager.Instance.serverURL}/car/TransitCommunication?startDate={startDate}&endDate={endDate}&departOfficeCode={departOfficeCode}&arriveOfficeCode={arriveOfficeCode}");       ///car/carView?distance={searchDistance}
 
-        request.SetRequestHeader("Client-Type", "Unity"); //Çì´õ Ãß°¡
+        request.SetRequestHeader("Client-Type", "Unity"); //ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
@@ -55,18 +55,17 @@ public class VehicleDataCenter : MonoBehaviour
         }
         else
         {
-            string response = request.downloadHandler.text;
-            Debug.Log("TransitCommunicationObstacleDataReceive: " + response);
+            //string response = request.downloadHandler.text;
 
-            FindObjectOfType<TransitCommunicationObstacleScript>().HandleReceivedData(response);
+            FindObjectOfType<TransitCommunicationObstacleScript>().HandleReceivedData(request);
         }
     }
 
-    public IEnumerator RegionTimeQuantityDataReceive(string firstOfficeCode, string secondOfficeCode, string dateTime)  //Ã»º°½Ã°£´ëº° Á¢¼ö¹°·® Á¶È¸
+    public IEnumerator RegionTimeQuantityDataReceive(string firstOfficeCode, string secondOfficeCode, string dateTime)  //Ã»ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ëº° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
     {
         UnityWebRequest request = UnityWebRequest.Get($"{GameManager.Instance.serverURL}/car/RegionTime?firstOfficeCode={firstOfficeCode}&secondOfficeCode={secondOfficeCode}&dateTime={dateTime}");       ///car/carView?distance={searchDistance}
 
-        request.SetRequestHeader("Client-Type", "Unity"); //Çì´õ Ãß°¡
+        request.SetRequestHeader("Client-Type", "Unity"); //ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
@@ -75,18 +74,17 @@ public class VehicleDataCenter : MonoBehaviour
         }
         else
         {
-            string response = request.downloadHandler.text;
-            Debug.Log("RegionTimeQuantity: " + response);
+            //string response = request.downloadHandler.text;
 
-            FindObjectOfType<RegionTimeQuantityScript>().HandleReceivedData(response);
+            FindObjectOfType<RegionTimeQuantityScript>().HandleReceivedData(request);
         }
     }
 
-    public IEnumerator ArriveQuantityDataReceive(string firstOfficeCode, string startDate, string endDate)  //ÁýÁß±¹º° µµÂø ¿¡Á¤¹°·® Á¶È¸
+    public IEnumerator ArriveQuantityDataReceive(string firstOfficeCode, string startDate, string endDate)  //ï¿½ï¿½ï¿½ß±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¸
     {
         UnityWebRequest request = UnityWebRequest.Get($"{GameManager.Instance.serverURL}/car/ArriveQuantity?firstOfficeCode={firstOfficeCode}&startDate={startDate}&endDate={endDate}");       ///car/carView?distance={searchDistance}
 
-        request.SetRequestHeader("Client-Type", "Unity"); //Çì´õ Ãß°¡
+        request.SetRequestHeader("Client-Type", "Unity"); //ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
@@ -95,18 +93,17 @@ public class VehicleDataCenter : MonoBehaviour
         }
         else
         {
-            string response = request.downloadHandler.text;
-            Debug.Log("ArriveQuantity: " + response);
+            //string response = request.downloadHandler.text;
 
-            FindObjectOfType<ArriveQuantityScript>().HandleReceivedData(response);
+            FindObjectOfType<ArriveQuantityScript>().HandleReceivedData(request);
         }
     }
 
-    public IEnumerator OperationDetailDataReceive(string firstOfficeCode, string secondOfficeCode, string netType)  //¿îÇà»çÇ× ¸ð´ÏÅÍ¸µ
+    public IEnumerator OperationDetailDataReceive(string firstOfficeCode, string secondOfficeCode, string netType)  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Í¸ï¿½
     {
         UnityWebRequest request = UnityWebRequest.Get($"{GameManager.Instance.serverURL}/car/OperationDetail?firstOfficeCode={firstOfficeCode}&secondOfficeCode={secondOfficeCode}&netType={netType}");       ///car/carView?distance={searchDistance}
 
-        request.SetRequestHeader("Client-Type", "Unity"); //Çì´õ Ãß°¡
+        request.SetRequestHeader("Client-Type", "Unity"); //ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
         yield return request.SendWebRequest();
 
         if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
@@ -115,10 +112,9 @@ public class VehicleDataCenter : MonoBehaviour
         }
         else
         {
-            string response = request.downloadHandler.text;
-            Debug.Log("OperationDetail: " + response);
+            //string response = request.downloadHandler.text;
 
-            FindObjectOfType<OperationDetailScript>().HandleReceivedData(response);
+            FindObjectOfType<OperationDetailScript>().HandleReceivedData(request);
         }
     }
 }
