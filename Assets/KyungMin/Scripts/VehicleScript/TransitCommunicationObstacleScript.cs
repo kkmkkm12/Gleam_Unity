@@ -8,7 +8,7 @@ public class TransitCommunicationObstacleScript : MonoBehaviour
     string prefabName = "ObstacleDataPrefab";
     public VehicleDataCenter vehicleDataCenter;
 
-    [Header("Á¶È¸Á¶°Ç")]
+    [Header("ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½")]
     public Dropdown startYearDropdown;
     public Dropdown startMonthDropdown;
     public Dropdown startDayDropdown;
@@ -19,7 +19,7 @@ public class TransitCommunicationObstacleScript : MonoBehaviour
     string startDate = string.Empty;
     string endDate = string.Empty;
 
-    [Header("Å¬¸¯½Ã Ãâ·Â ¿ÞÂÊ µ¥ÀÌÅÍ")]
+    [Header("Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")]
     public Text leftFirstLine;
     public Text leftSecondLine1;
     public Text leftSecondLine2;
@@ -29,14 +29,14 @@ public class TransitCommunicationObstacleScript : MonoBehaviour
     public Text leftFifthLine;
     public Text leftSixthLine;
 
-    [Header("Å¬¸¯½Ã Ãâ·Â ¿À¸¥ÂÊ µ¥ÀÌÅÍ")]
+    [Header("Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")]
     public Text rightFirstLine;
     public Text rightSecondLine;
     public Text rightThirdLine;
     public Text rightFourthLine1;
     public Text rightFourthLine2;
 
-    [Header("Àå¾Ö³»¿ª Ãâ·Â µ¥ÀÌÅÍ")]
+    [Header("ï¿½ï¿½Ö³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")]
     public Text bottomFirstLine;
     public Text bottomSecondLine;
     public Text bottomThirdLine;
@@ -45,22 +45,22 @@ public class TransitCommunicationObstacleScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void OnclickSearchBtn()
     {
-        StartCoroutine(vehicleDataCenter.TransitCommunicationObstacleDataReceive(null, null, null, null));
+        StartCoroutine(vehicleDataCenter.TransitCommunicationObstacleDataReceive("2024-10-15", "2024-10-16", "0300", "0200"));
     }
 
     public void HandleReceivedData(string response)
     {
-        Debug.Log("µ¥ÀÌÅÍ ¹Þ°í³ª¼­ ÆÄ½Ì ÇØ¾ßÇÔ.");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ä½ï¿½ ï¿½Ø¾ï¿½ï¿½ï¿½.");
     }
 }

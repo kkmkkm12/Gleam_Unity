@@ -10,7 +10,7 @@ public class TotalMonitoringScript : MonoBehaviour
     public Dropdown firstOfficeDropdown;                            //辑匡没, 碍盔没, 版牢没, 何魂没, 面没没, 傈合没, 傈巢没, 力林没, 版合没
     string firstOfficeCode = string.Empty;
     public Dropdown secondOfficeDropdown;
-    string secondOfficeCode = null;
+    public string secondOfficeCode = "0100";
 
     [Header("TotalQuantitySet狼 Text")]
     public Text tb1FirstLineText;

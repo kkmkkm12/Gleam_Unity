@@ -12,17 +12,18 @@ public class VehicleDataCenter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public IEnumerator TotalMoniterDataReceive(string officeCode)   //종합상황 모니터링
     {
+        Debug.Log($"서버에 요청할 officeCode: {officeCode}");
         UnityWebRequest request = UnityWebRequest.Get($"{GameManager.Instance.serverURL}/car/TotalMoniter?OfficeCode={officeCode}");       ///car/carView?distance={searchDistance}
 
         request.SetRequestHeader("Client-Type", "Unity"); //헤더 추가
@@ -35,6 +36,7 @@ public class VehicleDataCenter : MonoBehaviour
         else
         {
             string response = request.downloadHandler.text;
+            Debug.Log("TotalMoniterDataReceive: " + response);
 
             FindObjectOfType<TotalMonitoringScript>().HandleReceivedData(response);
         }
@@ -54,6 +56,7 @@ public class VehicleDataCenter : MonoBehaviour
         else
         {
             string response = request.downloadHandler.text;
+            Debug.Log("TransitCommunicationObstacleDataReceive: " + response);
 
             FindObjectOfType<TransitCommunicationObstacleScript>().HandleReceivedData(response);
         }
@@ -73,6 +76,7 @@ public class VehicleDataCenter : MonoBehaviour
         else
         {
             string response = request.downloadHandler.text;
+            Debug.Log("RegionTimeQuantity: " + response);
 
             FindObjectOfType<RegionTimeQuantityScript>().HandleReceivedData(response);
         }
@@ -92,6 +96,7 @@ public class VehicleDataCenter : MonoBehaviour
         else
         {
             string response = request.downloadHandler.text;
+            Debug.Log("ArriveQuantity: " + response);
 
             FindObjectOfType<ArriveQuantityScript>().HandleReceivedData(response);
         }
@@ -111,6 +116,7 @@ public class VehicleDataCenter : MonoBehaviour
         else
         {
             string response = request.downloadHandler.text;
+            Debug.Log("OperationDetail: " + response);
 
             FindObjectOfType<OperationDetailScript>().HandleReceivedData(response);
         }

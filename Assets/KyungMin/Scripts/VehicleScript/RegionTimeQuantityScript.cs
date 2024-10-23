@@ -7,7 +7,7 @@ public class RegionTimeQuantityScript : MonoBehaviour
 {
     public VehicleDataCenter vehicleDataCenter;
 
-    [Header("Á¶È¸Á¶°Ç")]
+    [Header("ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½")]
     public Dropdown firstOfficeDropdown;
     public Dropdown secondOfficeDropdown;
     public Dropdown yearDropdown;
@@ -16,7 +16,7 @@ public class RegionTimeQuantityScript : MonoBehaviour
     public Dropdown startTimeDropdown;
     public Dropdown endTimeDropdown;
 
-    [Header("ÀÏ¹Ý¼ÒÆ÷")]
+    [Header("ï¿½Ï¹Ý¼ï¿½ï¿½ï¿½")]
     public Text fisrtLine1;
     public Text fisrtLine2;
     public Text fisrtLine3;
@@ -27,7 +27,7 @@ public class RegionTimeQuantityScript : MonoBehaviour
     public Text fisrtLine8;
     public Text fisrtLine9;
 
-    [Header("Ã¢±¸¼ÒÆ÷")]
+    [Header("Ã¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")]
     public Text secondLine1;
     public Text secondLine2;
     public Text secondLine3;
@@ -38,7 +38,7 @@ public class RegionTimeQuantityScript : MonoBehaviour
     public Text secondLine8;
     public Text secondLine9;
 
-    [Header("±¹³»Æ¯±Þ-¼ÒÆ÷")]
+    [Header("ï¿½ï¿½ï¿½ï¿½Æ¯ï¿½ï¿½-ï¿½ï¿½ï¿½ï¿½")]
     public Text thirdLine1;
     public Text thirdLine2;
     public Text thirdLine3;
@@ -49,7 +49,7 @@ public class RegionTimeQuantityScript : MonoBehaviour
     public Text thirdLine8;
     public Text thirdLine9;
 
-    [Header("¹æ¹®¼ÒÆ÷")]
+    [Header("ï¿½æ¹®ï¿½ï¿½ï¿½ï¿½")]
     public Text fourthLine1;
     public Text fourthLine2;
     public Text fourthLine3;
@@ -60,7 +60,7 @@ public class RegionTimeQuantityScript : MonoBehaviour
     public Text fourthLine8;
     public Text fourthLine9;
 
-    [Header("±¹Á¦Æ¯±Þ")]
+    [Header("ï¿½ï¿½ï¿½ï¿½Æ¯ï¿½ï¿½")]
     public Text fifthLine1;
     public Text fifthLine2;
     public Text fifthLine3;
@@ -71,7 +71,7 @@ public class RegionTimeQuantityScript : MonoBehaviour
     public Text fifthLine8;
     public Text fifthLine9;
 
-    [Header("ÇÕ°è")]
+    [Header("ï¿½Õ°ï¿½")]
     public Text totalPlusLine1;
     public Text totalPlusLine2;
     public Text totalPlusLine3;
@@ -85,22 +85,22 @@ public class RegionTimeQuantityScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void OnclickSearchBtn()
     {
-        StartCoroutine(vehicleDataCenter.RegionTimeQuantityDataReceive(null, null, null));
+        StartCoroutine(vehicleDataCenter.RegionTimeQuantityDataReceive("0001", "1200", "2024-10-15"));
     }
 
     public void HandleReceivedData(string response)
     {
-        Debug.Log("µ¥ÀÌÅÍ ¹Þ°í³ª¼­ ÆÄ½Ì ÇØ¾ßÇÔ.");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ä½ï¿½ ï¿½Ø¾ï¿½ï¿½ï¿½.");
     }
 }

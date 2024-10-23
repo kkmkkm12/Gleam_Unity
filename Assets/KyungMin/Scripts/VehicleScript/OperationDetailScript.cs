@@ -7,7 +7,7 @@ public class OperationDetailScript : MonoBehaviour
 {
     public VehicleDataCenter vehicleDataCenter;
 
-    [Header("Á¶È¸Á¶°Ç")]
+    [Header("ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½")]
     public Dropdown firstOfficeDropdown;
     public Dropdown secondOfficeDropdown;
     public Dropdown netType;
@@ -15,22 +15,22 @@ public class OperationDetailScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void OnclickSearchBtn()
     {
-        StartCoroutine(vehicleDataCenter.OperationDetailDataReceive(null, null, null));
+        StartCoroutine(vehicleDataCenter.OperationDetailDataReceive("0003", "0900", "êµí™˜"));
     }
 
     public void HandleReceivedData(string response)
     {
-        Debug.Log("µ¥ÀÌÅÍ ¹Ş°í³ª¼­ ÆÄ½Ì ÇØ¾ßÇÔ.");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ş°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ä½ï¿½ ï¿½Ø¾ï¿½ï¿½ï¿½.");
     }
 }

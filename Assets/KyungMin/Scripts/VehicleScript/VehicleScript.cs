@@ -43,7 +43,7 @@ public class VehicleScript : MonoBehaviour
         MapImage.gameObject.SetActive(true);
     }
 
-    public void OnClickTotalMonitoring()
+    public void OnClickTotalMonitoring() //종합 상황 모니터링 버튼
     {
         TotalMonitoringSet.SetActive(true);
         TransitCommunicationObstacleSet.SetActive(false);
@@ -56,7 +56,7 @@ public class VehicleScript : MonoBehaviour
         CarListBtn_Script.DontUpdateCarList();
         MapImage.gameObject.SetActive(false);
     }
-    public void OnClickTransitCommunication()
+    public void OnClickTransitCommunication() //운송소통 장애현황 버튼
     {
         TotalMonitoringSet.SetActive(false);
         TransitCommunicationObstacleSet.SetActive(true);
@@ -69,7 +69,7 @@ public class VehicleScript : MonoBehaviour
         CarListBtn_Script.DontUpdateCarList();
         MapImage.gameObject.SetActive(false);
     }
-    public void OnClickRegionTime()
+    public void OnClickRegionTime() //청별시간대별 접수물량 조회
     {
         TotalMonitoringSet.SetActive(false);
         TransitCommunicationObstacleSet.SetActive(false);
@@ -82,7 +82,7 @@ public class VehicleScript : MonoBehaviour
         CarListBtn_Script.DontUpdateCarList();
         MapImage.gameObject.SetActive(false);
     }
-    public void OnClickArriveQuantity()
+    public void OnClickArriveQuantity() //집중국별 도착 예정 물량 조회
     {
         TotalMonitoringSet.SetActive(false);
         TransitCommunicationObstacleSet.SetActive(false);

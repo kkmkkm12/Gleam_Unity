@@ -8,34 +8,33 @@ using UnityEngine.UI;
 
 public class DataManager : MonoBehaviour
 {
-    public string ServerURL;                                //¼­¹ö ÁÖ¼Ò
-    public float RepeatTimer;                               //µ¥ÀÌÅÍ ¹Þ¾Æ¿À±â ¹Ýº¹ÇÒ ½Ã°£
+    public float RepeatTimer;                               //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½ ï¿½Ýºï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
 
-    public bool CarDistanceOn = false;                      //Â÷·® ÀÎÁ¢°Å¸® ÄÁÅÙÃ÷°¡ Ã³À½ È°¼ºÈ­ µÇ¾ú´ÂÁö È®ÀÎ
-    private Text[] CarInfo;                                 //Â÷·® Á¤º¸
-    private int RecentCount = 0;                            //ÀÌÀüÀÇ µ¥ÀÌÅÍ Ä«¿îÆ®
+    public bool CarDistanceOn = false;                      //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½ È°ï¿½ï¿½È­ ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+    private Text[] CarInfo;                                 //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    private int RecentCount = 0;                            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½Æ®
 
-    private Transform CallObject;                           //´Ù¸¥ ¿ÀºêÁ§Æ®¿¡ Á¢±ÙÀ» À§ÇÑ Transform
-    private Transform CarDistanceContent;                   //Â÷·®Á¤º¸ Ç¥½Ã ½ºÅ©·Ñ ºäÀÇ ÄÁÅÙÃ÷ °´Ã¼ Transform
-    private Text CarDistanceDropdownText;                   //°Å¸® DropDown¿¡ ´ëÇ¥ Text
+    private Transform CallObject;                           //ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Transform
+    private Transform CarDistanceContent;                   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ Transform
+    private Text CarDistanceDropdownText;                   //ï¿½Å¸ï¿½ DropDownï¿½ï¿½ ï¿½ï¿½Ç¥ Text
 
-    public int MaxDockNum = 0;                              //dockÀÇ ÃÖ´ë °³¼ö
-    public string[][] DockList = new string[14][];          //dockÀÇ °³¼ö = 14
+    public int MaxDockNum = 0;                              //dockï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public string[][] DockList = new string[14][];          //dockï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ = 14
 
     Queue<GameObject> pool = new Queue<GameObject>();       //pool
 
-    public bool firstStart = true;                          //Ã³À½ ½ÇÇàÇÏ´ÂÁö È®ÀÎ
+    public bool firstStart = true;                          //Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
 
-    private int[] DownPalletArray = new int[5];             //5ÀÏÄ¡ ÇÏÂ÷·®À» ¹Þ±âÀ§ÇÑ ¹è¿­
-    private int[] UpPalletArray = new int[5];               //5ÀÏÄ¡ »óÂ÷·®À» ¹Þ±âÀ§ÇÑ ¹è¿­
-    private int[] TotalPalletArray = new int[5];            //5ÀÏÄ¡ ¹°µ¿·®À» ¹Þ±âÀ§ÇÑ ¹è¿­
+    private int[] DownPalletArray = new int[5];             //5ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­
+    private int[] UpPalletArray = new int[5];               //5ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­
+    private int[] TotalPalletArray = new int[5];            //5ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­
 
-    public bool[] belt = { false, false, false, false, false, false, false, false };    //ÄÁº£ÀÌ¾î º§Æ®ÀÇ ´À·ÁÁö´Â ±¸°£
+    public bool[] belt = { false, false, false, false, false, false, false, false };    //ï¿½ï¿½ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-    private int dataNum = 0;                                //»õ·Î ¹Þ´Â µ¥ÀÌÅÍÀÇ °³¼ö(Ã³À½ ¾µ´ë¾ø´Â °Í Æ÷ÇÔÇÏ¿© µ¥ÀÌÅÍÀÇ real ¼ö¸¸ ÇÏ·Á¸é -1 ÇØÁà¾ßÇÔ)
-    private int preDataNum = 0;                             //ÀÌÀüÀÇ µ¥ÀÌÅÍ °³¼ö(ÀÌÇÏ µ¿¹® -1)
+    private int dataNum = 0;                                //ï¿½ï¿½ï¿½ï¿½ ï¿½Þ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ real ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ï¿½ï¿½ -1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+    private int preDataNum = 0;                             //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ -1)
 
-    Button[] contentChildsBtn;                              //Â÷·® Á¤º¸¿¡ ´ëÇÑ ¹öÆ°À» Ä³½ÌÇØ ³õ´Â ¹öÆ° ¹è¿­
+    Button[] contentChildsBtn;                              //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½è¿­
     // Start is called before the first frame update
     void Start()
     {
@@ -47,10 +46,10 @@ public class DataManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    public void ShortDistancePrefabActive()                 //»ý¼ºµÈ ÇÁ¸®ÆéÀÇ °´Ã¼ ¿¬°áÇÏ´Â ÇÔ¼ö
+    public void ShortDistancePrefabActive()                 //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
     {
         FindObject();
         foreach (Transform objName in CallObject.GetComponentsInChildren<Transform>())
@@ -63,17 +62,17 @@ public class DataManager : MonoBehaviour
         InvokeRepeating("StartRoutine", 0, RepeatTimer);
     }
 
-    private void StartRoutine()                             //¹Ýº¹½ÃÅ³ ÄÚ·çÆ¾À» Æ÷ÇÔÇÑ ÇÔ¼ö
+    private void StartRoutine()                             //ï¿½Ýºï¿½ï¿½ï¿½Å³ ï¿½Ú·ï¿½Æ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
     {
         StartCoroutine(_LoadCarList());
     }
-    public void StopRoutine()                               //ÄÚ·çÆ¾À» ¸ØÃß´Â ÇÔ¼ö
+    public void StopRoutine()                               //ï¿½Ú·ï¿½Æ¾ï¿½ï¿½ ï¿½ï¿½ï¿½ß´ï¿½ ï¿½Ô¼ï¿½
     {
         CancelInvoke("StartRoutine");
         firstStart = true;
     }
 
-    private void FindObject()                       //±âÁØÀÌ µÇ´Â ¿ÀºêÁ§Æ®¸¦ Ã£´Â ÇÔ¼ö
+    private void FindObject()                       //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½Ô¼ï¿½
     {
         bool car = false;
         CallObject = GameObject.Find("MainFunctionArrangement").GetComponent<Transform>();
@@ -93,9 +92,9 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    IEnumerator _LoadCarList()                          //µ¥ÀÌÅÍ ¹Þ¾Æ »óÇÏÂ÷, ¹°µ¿·®, »óÈ²Àü½Ã, Â÷·® ÀÎÁ¢ µ¥ÀÌÅÍ¿¡ ´ëÇØ ¹Þ¾Æ¿À´Â ÇÔ¼ö
+    IEnumerator _LoadCarList()                          //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½È²ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
     {
-        UnityWebRequest request = UnityWebRequest.Get($"{ServerURL}/car/carView");
+        UnityWebRequest request = UnityWebRequest.Get($"{GameManager.Instance.serverURL}/car/carView");
         DateTime today = DateTime.Today;
 
         request.SetRequestHeader("Client-Type", "Unity");
@@ -108,7 +107,7 @@ public class DataManager : MonoBehaviour
         else
         {
             string requestText = request.downloadHandler.text.ToString();
-            Debug.Log(requestText);
+            //Debug.Log(requestText);
 
             Array.Fill(DownPalletArray, 0);
             Array.Fill(UpPalletArray, 0);
@@ -121,7 +120,7 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    private void DockListUpdate(string data)                            //»óÈ²Àü½Ã¿¡ µé¾î°¥ µµÅ© »óÅÂ¿¡ ´ëÇÑ µ¥ÀÌÅÍ¸¦ ¹Þ´Â´Ù.
+    private void DockListUpdate(string data)                            //ï¿½ï¿½È²ï¿½ï¿½ï¿½Ã¿ï¿½ ï¿½ï¿½î°¥ ï¿½ï¿½Å© ï¿½ï¿½ï¿½Â¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Þ´Â´ï¿½.
     {
         int temp_MaxNum = 0;
         DockList = new string[14][];
@@ -132,7 +131,7 @@ public class DataManager : MonoBehaviour
         string[] preLogisticsWeight = data.Split("\"logisticsWeight\":");
         string[] preDriveStatus = data.Split("\"driveStatus\":");
 
-        for(int i = 1; i < preDockNo.Length; i++)
+        for (int i = 1; i < preDockNo.Length; i++)
         {
             string[] dockNo = preDockNo[i].Split(',');
             string[] carNo = preCarNo[i].Split(',');
@@ -150,26 +149,26 @@ public class DataManager : MonoBehaviour
                 DockList[temp] = new string[4];
                 DockList[temp][0] = dockNo[0];
                 DockList[temp][1] = carNo[0];
-                DockList[temp][2] = (int.Parse(logisticsWeight[0])).ToString();         //pallet °¹¼öÀÇ ¹ÝÀý Á¤µµ ¾²·Á°í Çß´Âµ¥ ´õ¹Ìµ¥ÀÌÅÍ pallet ¾çÀÌ Àû¾î¼­ ±×³É ¾¸
-                DockList[temp][3] = "ÇÏÂ÷";
+                DockList[temp][2] = (int.Parse(logisticsWeight[0])).ToString();         //pallet ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß´Âµï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ pallet ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î¼­ ï¿½×³ï¿½ ï¿½ï¿½
+                DockList[temp][3] = "ï¿½ï¿½ï¿½ï¿½";
             }
             else if (driveStatus[0].Equals("2"))
             {
                 DockList[temp] = new string[4];
                 DockList[temp][0] = dockNo[0];
                 DockList[temp][1] = carNo[0];
-                DockList[temp][2] = (int.Parse(logisticsWeight[0])).ToString();         //pallet °¹¼öÀÇ ¹ÝÀý Á¤µµ ¾²·Á°í Çß´Âµ¥ ´õ¹Ìµ¥ÀÌÅÍ pallet ¾çÀÌ Àû¾î¼­ ±×³É ¾¸
-                DockList[temp][3] = "»óÂ÷";
+                DockList[temp][2] = (int.Parse(logisticsWeight[0])).ToString();         //pallet ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß´Âµï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½ï¿½ï¿½ï¿½ pallet ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î¼­ ï¿½×³ï¿½ ï¿½ï¿½
+                DockList[temp][3] = "ï¿½ï¿½ï¿½ï¿½";
             }
         }
         MaxDockNum = temp_MaxNum;
     }
 
-    private void UnloadCount(string data, DateTime today)                       //ÇÏÂ÷µ¥ÀÌÅÍ¸¦ ¹Þ´Â ÇÔ¼ö
+    private void UnloadCount(string data, DateTime today)                       //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Þ´ï¿½ ï¿½Ô¼ï¿½
     {
-        if(CallObject != null)
+        if (CallObject != null)
         {
-            
+
             Transform prefabParentParent = CallObject.parent.parent;
             string[] preDepartTime = data.Split("\"departTime\":");
             string[] preLogisticsWeight = data.Split("\"logisticsWeight\":");
@@ -210,7 +209,7 @@ public class DataManager : MonoBehaviour
                         DownPalletArray[0] += int.Parse(logisticsWeight[0]);
                     }
                 }
-                else if (driveStatus[0].Equals("13")) continue;                     //¿îÇàÁ¾·á·Î ÆÇ´Ü
+                else if (driveStatus[0].Equals("13")) continue;                     //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½
 
             }
 
@@ -229,19 +228,19 @@ public class DataManager : MonoBehaviour
                     UnLoadingGrahp = findUnloadPrefab.Find("PieChart(Clone)").GetComponent<PieValueController>();
 
                     UnLoadingGrahp.DrowGraph((float)DownPalletArray[4]);
-                    Debug.Log("¿øÇü! = " + DownPalletArray[4]);
+                    Debug.Log("ï¿½ï¿½ï¿½ï¿½! = " + DownPalletArray[4]);
                 }
                 else
                 {
-                    
+
                 }
             }
         }
     }
 
-    private void LoadCount(string data, DateTime today)                     //»óÂ÷µ¥ÀÌÅÍ¸¦ ¹Þ´Â ÇÔ¼ö
+    private void LoadCount(string data, DateTime today)                     //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Þ´ï¿½ ï¿½Ô¼ï¿½
     {
-        if(CallObject != null)
+        if (CallObject != null)
         {
             Transform prefabParentParent = CallObject.parent.parent;
 
@@ -280,7 +279,7 @@ public class DataManager : MonoBehaviour
                 {
                     UpPalletArray[0] += int.Parse(logisticsWeight[0]);
                 }
-                else if (driveStatus[0].Equals("13")) continue;                     //¿îÇàÁ¾·á·Î ÆÇ´Ü
+                else if (driveStatus[0].Equals("13")) continue;                     //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½
             }
 
             foreach (Transform findUnloadPrefab in prefabParentParent.GetComponentsInChildren<Transform>())
@@ -301,14 +300,14 @@ public class DataManager : MonoBehaviour
                 }
                 else
                 {
-                    
+
                 }
             }
         }
     }
-    private void VolumeCount(DateTime today)                                //¹°µ¿·® µ¥ÀÌÅÍ¸¦ ¹Þ´Â ÇÔ¼ö
+    private void VolumeCount(DateTime today)                                //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Þ´ï¿½ ï¿½Ô¼ï¿½
     {
-        if(CallObject != null)
+        if (CallObject != null)
         {
             Transform prefabParentParent = CallObject.parent.parent;
 
@@ -342,10 +341,10 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    private void CarDistance(string data, DateTime today)                           //Â÷·® ÀÎÁ¢°Å¸® µ¥ÀÌÅÍ¸¦ ¹Þ´Â ÇÔ¼ö
+    private void CarDistance(string data, DateTime today)                           //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Þ´ï¿½ ï¿½Ô¼ï¿½
     {
         bool refrash = false;
-        
+
         if (CarDistanceContent != null && dataNum != preDataNum)
         {
             refrash = true;
@@ -360,7 +359,7 @@ public class DataManager : MonoBehaviour
                 if (count > 0)
                 {
                     ReturnToPool(carDistanceContentChild.gameObject);
-                    Debug.Log("»ý¼º");
+                    Debug.Log("ï¿½ï¿½ï¿½ï¿½");
                     count--;
                 }
                 else
@@ -376,7 +375,7 @@ public class DataManager : MonoBehaviour
             GameObject prefab = Resources.Load<GameObject>(prefabName);
             int dataLength = 0;
 
-            //Â÷·®¹øÈ£, Ãâ¹ßÁö, °Å¸® ±¸ÇÏ´Â ÄÚµå
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È£, ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Úµï¿½
             string[] preCarNumber = data.Split("\"carNo\":");
             string[] preDepartment = data.Split("\"departPoint\":");
             string[] preDistance = data.Split("\"currDist\":");
@@ -387,19 +386,19 @@ public class DataManager : MonoBehaviour
             string[] realDepartment = new string[dataLength];
             string[] realDistance = new string[dataLength];
 
-            //1ºÎÅÍ Ä«¿îÆ® ÇÏ´Â ÀÌÀ¯ : ºÐÇÒÇÑ 0¹øÂ° ¹è¿­¿¡´Â Å°¿öµå º¸´Ù µÚÀÇ °ªÀ¸·Î ¾µ ¼ö ¾ø´Â °ªÀÌ ´ëÀÔ µÊ
+            //1ï¿½ï¿½ï¿½ï¿½ Ä«ï¿½ï¿½Æ® ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½Â° ï¿½è¿­ï¿½ï¿½ï¿½ï¿½ Å°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
             for (int i = 1; i < preCarNumber.Length; i++)
             {
-                /*1¹ø ¹è¿­ ÀÌÈÄ ºÎÅÍ´Â ´ÙÀ½ Å°¿öµå Àü±îÁöÀÇ °ªÀÌ ´ëÀÔµÇ¾îÀÖÀ¸¹Ç·Î
-                Å°¿öµå °ªÀ» ³ª´©´Â °ª±îÁöÀÇ ±¸ºÐÀÚ·Î Split ÇÏ°í ¾µ´ë ¾ø´Â ±âÈ£ Replace·Î »èÁ¦*/
+                /*1ï¿½ï¿½ ï¿½è¿­ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ï¿½ Å°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ÔµÇ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½
+                Å°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ú·ï¿½ Split ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ Replaceï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½*/
 
-                //Â÷·® ¹øÈ£ ±¸ÇÏ´Â ÄÚµå
+                //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È£ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Úµï¿½
                 string[] carNumber = preCarNumber[i].Split(",");
                 realCarNumber[i - 1] = carNumber[0].Trim('"');
-                //Ãâ¹ßÁö ±¸ÇÏ´Â ÄÚµå
+                //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Úµï¿½
                 string[] department = preDepartment[i].Split(",");
                 realDepartment[i - 1] = department[0].Trim('"');
-                //ÀÎÁ¢°Å¸® ±¸ÇÏ´Â ÄÚµå
+                //ï¿½ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Úµï¿½
                 realDistance[i - 1] = preDistance[i].Split("}")[0];
 
                 GetPooledObject(prefab);
@@ -410,28 +409,28 @@ public class DataManager : MonoBehaviour
                 CarInfo = CarDistanceContent.GetComponentsInChildren<Text>();
             }
 
-            if (CarInfo != null) 
+            if (CarInfo != null)
                 for (int i = 0; i < (dataNum - 1) * 3; i += 3)
                 {
                     CarInfo[i].text = realCarNumber[(i == 0) ? 0 : i / 3];
                     CarInfo[i + 1].text = realDepartment[(i == 0) ? 0 : i / 3];
                     CarInfo[i + 2].text = realDistance[(i == 0) ? 0 : i / 3];
 
-                    if (CarDistanceDropdownText.text.Equals("¿îÇà ÀüÃ¼"))
+                    if (CarDistanceDropdownText.text.Equals("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼"))
                     {
 
                     }
-                    else if (CarDistanceDropdownText.text.Equals("3km ÀÌÇÏ"))
+                    else if (CarDistanceDropdownText.text.Equals("3km ï¿½ï¿½ï¿½ï¿½"))
                     {
                         if (float.Parse(CarInfo[i + 2].text) > 3000)
                             CarInfo[i].transform.parent.gameObject.SetActive(false);
                     }
-                    else if (CarDistanceDropdownText.text.Equals("5km ÀÌÇÏ"))
+                    else if (CarDistanceDropdownText.text.Equals("5km ï¿½ï¿½ï¿½ï¿½"))
                     {
                         if (float.Parse(CarInfo[i + 2].text) > 5000)
                             CarInfo[i].transform.parent.gameObject.SetActive(false);
                     }
-                    else if (CarDistanceDropdownText.text.Equals("10km ÀÌÇÏ"))
+                    else if (CarDistanceDropdownText.text.Equals("10km ï¿½ï¿½ï¿½ï¿½"))
                     {
                         if (float.Parse(CarInfo[i + 2].text) > 10000)
                             CarInfo[i].transform.parent.gameObject.SetActive(false);
@@ -474,7 +473,7 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    void GetPooledObject(GameObject prefab)                 //Ç®ÀÇ °´Ã¼¸¦ ²¨³» »ç¿ëÇÏ´Â ÇÔ¼ö
+    void GetPooledObject(GameObject prefab)                 //Ç®ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ô¼ï¿½
     {
         if (pool.Count > 0)
         {
@@ -483,11 +482,11 @@ public class DataManager : MonoBehaviour
         }
         else
         {
-            if (dataNum != preDataNum || CarDistanceOn)  Instantiate(prefab, CarDistanceContent);
+            if (dataNum != preDataNum || CarDistanceOn) Instantiate(prefab, CarDistanceContent);
         }
     }
 
-    void ReturnToPool(GameObject obj)                       //Ç®¿¡ °´Ã¼¸¦ ´ã¾Æ³õ´Â ÇÔ¼ö
+    void ReturnToPool(GameObject obj)                       //Ç®ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½Æ³ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
     {
         obj.SetActive(false);
         pool.Enqueue(obj);

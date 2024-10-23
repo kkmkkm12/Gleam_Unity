@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ArriveQuantityScript : MonoBehaviour
 {
-    string prefabName = "ÇÁ¸®Æé °æ·Î/PostQuantityPrefab";
+    string prefabName = "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½/PostQuantityPrefab";
     public VehicleDataCenter vehicleDataCenter;
 
 
@@ -12,22 +12,22 @@ public class ArriveQuantityScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void OnclickSearchBtn()
     {
-        StartCoroutine(vehicleDataCenter.ArriveQuantityDataReceive(null, null, null));
+        StartCoroutine(vehicleDataCenter.ArriveQuantityDataReceive("0003", "2024-10-15", "2024-10-16"));
     }
 
     public void HandleReceivedData(string response)
     {
-        Debug.Log("µ¥ÀÌÅÍ ¹Þ°í³ª¼­ ÆÄ½Ì ÇØ¾ßÇÔ.");
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ä½ï¿½ ï¿½Ø¾ï¿½ï¿½ï¿½.");
     }
 }
