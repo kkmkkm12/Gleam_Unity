@@ -52,7 +52,6 @@ namespace AwesomeCharts {
             float valueDiff = valueMax - valueMin;
             if (valueDiff > 0f && axisLength > 0f) {
                 axisValue = valueMin + (valueDiff * (axisPosition / axisLength));
-                Debug.Log((int)axisValue);
             }
 
             return valueFormatter.FormatAxisValue (index, axisValue, valueMin, valueMax);

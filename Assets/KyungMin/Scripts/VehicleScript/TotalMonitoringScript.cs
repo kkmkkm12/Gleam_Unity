@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -250,6 +251,76 @@ public class TotalMonitoringScript : MonoBehaviour
 
     public void HandleReceivedData(UnityWebRequest response)
     {
-        Debug.Log("데이터 받고나서 파싱 해야함.");
+        //우선 파싱부터 하자 tb에 따른 파싱부터 해야함
+        string[] tb = response.downloadHandler.text.Split("tb");
+        SetDataTB1(tb[1]);
+        SetDataTB2(tb[2]);
+        SetDataTB3(tb[3]);
+        SetDataTB4(tb[4]);
+    }
+
+    public void SetDataTB1(string data)
+    {
+        string[] tb1Array = data.Split(",");
+        string[] todayCount = tb1Array[2].Split("당일접수\":");                //1 사용
+        string[] preYesterdayCount = tb1Array[3].Split("\"기준일접수량\":");
+        string[] yesterdayCount = preYesterdayCount[1].Split("}]");             //0 사용
+
+        tb1FirstLineText.text = todayCount[1];
+        tb1SecondLineText.text = yesterdayCount[0];
+    }
+
+    public void SetDataTB2(string data)
+    {
+        string[] tb2Array = data.Split(",");
+        string[] todayGCount = tb2Array[2].Split("\"기준일일반\":");      //1 사용
+        string[] todayDCount = tb2Array[3].Split("\"기준일등기\":");      //1 사용
+        string[] todayICount = tb2Array[4].Split("\"기준일국제우편\":");   //1 사용
+        string[] yesterdayGCount = tb2Array[5].Split("\"기준일일반_어제\":");   //1사용
+        string[] yesterdayDCount = tb2Array[6].Split("\"기준일등기_어제\":");   //1사용
+        string[] preYesterdayICount = tb2Array[7].Split("\"기준일국제우편_어제\":");   //1사용
+        string[] yesterdayICount = preYesterdayICount[1].Split("}]");               //0사용
+
+        tb2FirstLineText1.text = todayGCount[1];
+        tb2SecondLineText1.text = todayDCount[1];
+        tb2ThirdLineText1.text = todayICount[1];
+        tb2FirstLineText2.text = yesterdayGCount[1];
+        tb2SecondLineText2.text = yesterdayDCount[1];
+        tb2ThirdLineText2.text = yesterdayICount[0];
+
+        tb2FourthLineText1.text = (int.Parse(todayGCount[1]) + int.Parse(todayDCount[1]) + int.Parse(todayICount[1])).ToString();
+        tb2FourthLineText2.text = (int.Parse(yesterdayGCount[1]) + int.Parse(yesterdayDCount[1]) + int.Parse(yesterdayICount[0])).ToString();
+
+    }
+    public void SetDataTB3(string data)
+    {
+        string[] tb3Array = data.Split(",");
+        string[] yesterdayCCount = tb3Array[0].Split("\"기준일배달완료\":");   //1 사용
+        string[] todayPCount = tb3Array[1].Split("\"당일배달예정\":");
+        string[] todayICount = tb3Array[2].Split("\"당일진행중\":");
+        string[] preTodayCCount = tb3Array[3].Split("\"당일배달완료\":");
+        string[] todayCCount = preTodayCCount[1].Split("}]");               //0 사용
+
+        tb3FirstLineText1.text = yesterdayCCount[1];
+        tb3FirstLineText2.text = todayPCount[1];
+        tb3FirstLineText3.text = todayICount[1];
+        tb3FirstLineText4.text = todayCCount[0];
+    }
+    public void SetDataTB4(string data)
+    {
+        string[] tb4Array = data.Split("}],");
+        string[] boxCount = tb4Array[0].Split("[{\"집중국상자\":");
+        string[] palletCount = tb4Array[1].Split("[{\"집중국파렛\":");
+        string[] rollCount = tb4Array[2].Split("[{\"집중국롤파렛\":");
+        string[] trollCount = tb4Array[3].Split("[{\"집중국트롤리\":");
+        string[] bagCount = tb4Array[4].Split("[{\"집중국자루\":");               //1사용   
+        string[] preNoBottleCount = tb4Array[5].Split("[{\"집중국무용기\":");
+        string[] noBottleCount = preNoBottleCount[1].Split("}]]}");             //0사용
+
+        tb4SecondLineText1.text = boxCount[1];
+        tb4SecondLineText2.text = (int.Parse(palletCount[1]) + int.Parse(rollCount[1])).ToString();
+        tb4SecondLineText3.text = trollCount[1];
+        tb4SecondLineText4.text = bagCount[1];
+        tb4SecondLineText5.text = noBottleCount[0];
     }
 }

@@ -26,10 +26,10 @@ namespace OSMClient
         [SerializeField]
         [Range(1, 5)]
         private int tilesAroundLocation = 2;
+        [SerializeField]    //위도 경도 start 문에서 다시 재정의 해서 inspector 창에서 조정해도 start에서 다시 바뀜
+        private double latitude = 36.270221968472264;   //50.449547;        //36.270221968472264
         [SerializeField]
-        private double latitude = 50.449547;
-        [SerializeField]
-        private double longitude = 30.525394;
+        private double longitude = 127.47373892497943;  //30.525394;        //127.47373892497943
         [SerializeField]
         private float zoom = 17;
         public float MinZoom = 2f;
@@ -290,6 +290,9 @@ namespace OSMClient
             SimpleGestures.OnPan += Gestures_OnPan;
             SimpleGestures.OnScale += Gestures_OnScale;
             SimpleGestures.OnRotate += Gestures_OnRotate;
+
+            latitude = 36.270221968472264;
+            longitude = 127.47373892497943;
         }
 
         /// <summary>

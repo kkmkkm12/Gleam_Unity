@@ -20,7 +20,6 @@ namespace AwesomeCharts {
         }
 
         private string GetCustomValueForIndex (List<string> customValues, int index) {
-            Debug.Log($"Ä¿½ºÅÒ ¾îÂ¼±¸, ÀÎµ¦½º : {customValues.Count}, {index}");
             return customValues.Count > index? customValues[index]: "";
         }
 

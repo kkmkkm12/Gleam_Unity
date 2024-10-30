@@ -7,6 +7,7 @@ public class OperationDetailDataPrefabScript : MonoBehaviour
 {
 
     [Header("UI Ç¥½Ã")]
+    public Text sn_Text;
     public Text netType_Text;
     public Text carNum_Text;
     public Text driverPhoneNum_Text;
@@ -34,13 +35,14 @@ public class OperationDetailDataPrefabScript : MonoBehaviour
         
     }
 
-    public void SetData(OperationDetailInfo data)
+    public void SetData(int sn, OperationDetailInfo data)
     {
+        sn_Text.text = sn.ToString();
         netType_Text.text = data.netType;
         carNum_Text.text = data.carNum;
         driverPhoneNum_Text.text = data.driverPhoneNum;
-        departOfficeName_Text.text = data.departOfficeName;
-        arriveOfficeName_Text.text= data.arriveOfficeName;
+        departOfficeName_Text.text = data.secondOfficeName;
+        arriveOfficeName_Text.text= data.secondOfficeNamee;
         departExpectTime_Text.text = data.departExpectTime;
         arriveExpectTime_Text.text = data.arriveExpectTime;
         driverName_Text.text = data.driverName;

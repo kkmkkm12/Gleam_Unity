@@ -43,7 +43,16 @@ public class CarControlUI : MonoBehaviour
 
         logisticsWeight.text = carControl.logisticsWeight.ToString();
         dockNo.text = carControl.dockNo.ToString();
-        driveStatus.text = carControl.driveStatus;
+
+        if (carControl.driveStatus.Equals("0"))
+            driveStatus.text = "정상";
+        else if (carControl.driveStatus.Equals("1"))
+            driveStatus.text = "차량고장";
+        else if (carControl.driveStatus.Equals("2"))
+            driveStatus.text = "사고";
+        else if (carControl.driveStatus.Equals("3"))
+            driveStatus.text = "운행불가";
+
         currLatitude.text = carControl.currLatitude.ToString();
         currLongitude.text = carControl.currLongitude.ToString();
         currDist.text = carControl.currDist.ToString();
@@ -110,7 +119,8 @@ public class CarControlUI : MonoBehaviour
             Debug.LogError("위도 또는 경도 변환에 실패:(");
         }
 
-        Canvas parentCanvas = GetComponentInParent<Canvas>();
-        Instantiate(DetailPrefab, parentCanvas.transform);
+        //대표님께 보여주기위해 주석처리 10-25
+        /*Canvas parentCanvas = GetComponentInParent<Canvas>();
+        Instantiate(DetailPrefab, parentCanvas.transform);*/
     }
 }

@@ -108,7 +108,7 @@ public class DataManager : MonoBehaviour
         else
         {
             string requestText = request.downloadHandler.text.ToString();
-            Debug.Log(requestText);
+            //Debug.Log(requestText);
 
             Array.Fill(DownPalletArray, 0);
             Array.Fill(UpPalletArray, 0);

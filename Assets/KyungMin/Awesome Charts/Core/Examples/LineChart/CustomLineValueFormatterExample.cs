@@ -56,10 +56,8 @@ public class CustomLineValueFormatterExample : MonoBehaviour
 
 
         DrowGraph(a, b, c);
-        Debug.Log("한번");
 
         DrowGraph(a, b, c);
-        Debug.Log("두번");
 
     }
     void OnEnable()

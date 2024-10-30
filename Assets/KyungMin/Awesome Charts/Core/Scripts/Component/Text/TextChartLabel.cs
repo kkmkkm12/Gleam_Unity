@@ -8,7 +8,6 @@ namespace AwesomeCharts {
 
         public override void SetLabelColor (Color color) {
             textLabel.color = color;
-            Debug.Log("³ª¿À³Ä? " + gameObject.transform.parent.name);
         }
 
         public override void SetLabelText (string text) {

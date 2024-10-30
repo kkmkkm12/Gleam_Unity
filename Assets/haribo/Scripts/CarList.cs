@@ -1,3 +1,5 @@
+using JetBrains.Annotations;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +8,19 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+
+[System.Serializable]
+public class DatePhone
+{
+    public string phoneNum;
+    public DateTime dateTime;
+
+    public DatePhone(string phoneNum, DateTime dateTime)
+    {
+        this.phoneNum = phoneNum;
+        this.dateTime = dateTime;
+    }
+}
 
 [System.Serializable]
 public class CarControl  //haribo: 디비에서 가져온 데이터 담아줄 클래스인데 아직 정확히 어떤 필드 선언해줘야될지 결정되지않음.상황따라 필드 빼줄거빼주고 쓸거 넣고 하면 됨.
@@ -37,6 +52,8 @@ public class CarList : MonoBehaviour
     //private List<CarControl> cachedCarControlList; //계속 DB에 불러올 필요없이 데이터 캐시된거 있으면 캐싱데이터 쓰게끔하기
     public GameObject carInfoPrefab; // 차량 정보 Scroll View 리스트에 쏴줄 객체
     public Transform content; // Scroll View Content
+    public Dropdown sort_Dropdown;
+    public InputField inputPhoneNum;
     private List<CarControl> carControlList; // 차량 정보 리스트
     public Image CarListImage;
     public Image CarCreateImage;
@@ -51,7 +68,8 @@ public class CarList : MonoBehaviour
     TMP_Text pageText;                                                                                                        
     [SerializeField]                                                                                                          
     TMP_Text pageTotalIndexText;                                                                                              
-    int pageTotalIndex = 1;                                                                                                   
+    int pageTotalIndex = 1;
+    List<DatePhone> datePhone;
                                                                                                                               
     float searchDistance = 500000;
     string searchRegion = string.Empty;
@@ -122,7 +140,8 @@ public class CarList : MonoBehaviour
             var response = JsonUtility.FromJson<CarControlList>(request.downloadHandler.text);
             carControlList = new List<CarControl>(response.cars); ;
 
-            ResetUIList();
+            datePhone = new List<DatePhone>();
+        ResetUIList();
 
             /// <summary>
             /// 곽경민 : 거리로 값 전달해주면 날라오는 데이터 만큼 만 활성화 시키고 foreach문을
@@ -132,6 +151,8 @@ public class CarList : MonoBehaviour
             int count = 0;
             foreach (CarControl carControl in carControlList)
             {
+                datePhone.Add(new DatePhone(carControl.hpNo, DateTime.Parse(carControl.arrivePreTime)));
+
                 CarControlUI carInfoUI = carControlPool.GetObj();
                 carInfoUI.transform.SetParent(content, false);
                 carInfoUI.SetData(carControl);
@@ -273,6 +294,106 @@ public class CarList : MonoBehaviour
     //     pageText.text = pageIndex.ToString(); // 페이지 텍스트 업데이트
     //     UpdateCarList(); // 페이지 변경 시 새로운 데이터 로드
     // }
+
+    public void SortTime_Dropdown()
+    {
+        int selectBtn = sort_Dropdown.value;
+
+        GameObject[] childObjects = new GameObject[content.transform.childCount];
+
+        for (int i = 0; i < content.transform.childCount; i++)
+        {
+            childObjects[i] = content.transform.GetChild(i).gameObject;
+        }
+
+        List<int> originalIndices = new List<int>();
+        for (int i = 0; i < datePhone.Count; i++)
+        {
+            originalIndices.Add(i);
+        }
+
+        switch (selectBtn)
+        {
+            case 1:
+                // 오름차순 정렬 함수
+                for(int i = 0; i < datePhone.Count; i++)
+                {
+                    for(int j = i + 1; j < datePhone.Count; j++)
+                    {
+                        if (datePhone[i].dateTime > datePhone[j].dateTime)
+                        {
+                            //리스트에서 우선 변경 후
+                            DatePhone temp = datePhone[i];
+                            datePhone[i] = datePhone[j];
+                            datePhone[j] = temp;
+
+                            //인덱스 변경
+                            int tempIndex = originalIndices[i];
+                            originalIndices[i] = originalIndices[j];
+                            originalIndices[j] = tempIndex;
+                        }
+                    }
+                }
+
+                for (int i = 0; i < originalIndices.Count; i++)
+                {
+                    childObjects[originalIndices[i]].transform.SetSiblingIndex(i + 1); // 인덱스를 하이어라키에 적용
+                }
+                break;
+            case 2:
+                // 정렬 함수
+                for (int i = 0; i < datePhone.Count; i++)
+                {
+                    for (int j = i + 1; j < datePhone.Count; j++)
+                    {
+                        if (datePhone[i].dateTime < datePhone[j].dateTime)
+                        {
+                            //리스트에서 우선 변경 후
+                            DatePhone temp = datePhone[i];
+                            datePhone[i] = datePhone[j];
+                            datePhone[j] = temp;
+
+                            //hierarchy 창에서 위치 변경
+                            int tempIndex = originalIndices[i];
+                            originalIndices[i] = originalIndices[j];
+                            originalIndices[j] = tempIndex;
+                        }
+                    }
+                }
+
+                for (int i = 0; i < originalIndices.Count; i++)
+                {
+                    childObjects[originalIndices[i]].transform.SetSiblingIndex(i + 1); // 인덱스를 하이어라키에 적용
+                }
+                break;
+        }
+    }
+
+    public void OnclickSearchBtn()
+    {
+        string searchPhoneNum = inputPhoneNum.text;
+
+        GameObject[] childObjects = new GameObject[content.transform.childCount];
+        for (int i = 0; i < content.transform.childCount; i++)
+        {
+            childObjects[i] = content.transform.GetChild(i).gameObject;
+            if (searchPhoneNum.Equals(string.Empty))
+            {
+                childObjects[i].SetActive(true);
+            }
+            else if (!searchPhoneNum.Equals(string.Empty))
+            {
+                if (datePhone[i].phoneNum.Contains(searchPhoneNum))
+                {
+                    childObjects[i].SetActive(true);
+                }
+                else
+                {
+                    childObjects[i].SetActive(false);
+                }
+            }
+        }
+    }
 }
 
 //하리보: 계속 서버로 2.5초 동안 호출해주는 함수

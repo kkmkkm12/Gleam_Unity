@@ -37,7 +37,7 @@ public class VehicleDataCenter : MonoBehaviour
         else
         {
             //string response = request.downloadHandler.text;
-
+            Debug.Log(request.downloadHandler.text);
             FindObjectOfType<TotalMonitoringScript>().HandleReceivedData(request);
         }
     }
@@ -57,6 +57,7 @@ public class VehicleDataCenter : MonoBehaviour
         {
             //string response = request.downloadHandler.text;
 
+            Debug.Log(request.downloadHandler.text);
             FindObjectOfType<TransitCommunicationObstacleScript>().HandleReceivedData(request);
         }
     }
@@ -76,6 +77,7 @@ public class VehicleDataCenter : MonoBehaviour
         {
             //string response = request.downloadHandler.text;
 
+            Debug.Log(request.downloadHandler.text);
             FindObjectOfType<RegionTimeQuantityScript>().HandleReceivedData(request);
         }
     }
@@ -95,6 +97,7 @@ public class VehicleDataCenter : MonoBehaviour
         {
             //string response = request.downloadHandler.text;
 
+            Debug.Log(request.downloadHandler.text);
             FindObjectOfType<ArriveQuantityScript>().HandleReceivedData(request);
         }
     }
@@ -114,6 +117,7 @@ public class VehicleDataCenter : MonoBehaviour
         {
             //string response = request.downloadHandler.text;
 
+            Debug.Log(request.downloadHandler.text);
             FindObjectOfType<OperationDetailScript>().HandleReceivedData(request);
         }
     }

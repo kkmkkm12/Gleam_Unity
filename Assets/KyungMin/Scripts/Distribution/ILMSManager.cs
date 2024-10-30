@@ -267,6 +267,7 @@ public class ILMSManager : MonoBehaviour
     {
         LastClickBtnName = string.Empty;
         SettingObject.SetActive(true);
+        MainFunctionSettingArea.SetActive(true);
     }
     public void OnClickSetting_Out_Type()                           //설정 버튼 나가기 눌렀을 때
     {

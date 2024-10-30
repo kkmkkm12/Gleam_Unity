@@ -10,8 +10,8 @@ public class OperationDetailInfo
     public string netType;
     public string carNum;
     public string driverPhoneNum;
-    public string departOfficeName;
-    public string arriveOfficeName;
+    public string secondOfficeName;
+    public string secondOfficeNamee;
     public string departExpectTime;
     public string arriveExpectTime;
     public string driverName;
@@ -25,6 +25,22 @@ public class OperationDetailList
     public OperationDetailInfo[] prefabDatas;   // json 배열을 담기위한 필드
 }
 
+public static class JsonHelper1
+{
+    public static T[] FromJson<T>(string json)
+    {
+        // JSON 데이터를 객체 배열을 포함하는 JSON 형식으로 감싼다.
+        string newJson = "{ \"prefabDatas\": " + json + "}";
+        Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(newJson);
+        return wrapper.prefabDatas;
+    }
+
+    [System.Serializable]
+    private class Wrapper<T>
+    {
+        public T[] prefabDatas; // JSON 데이터의 배열 필드에 맞추어 이름을 일치시킨다.
+    }
+}
 
 public class OperationDetailScript : MonoBehaviour
 {
@@ -45,7 +61,7 @@ public class OperationDetailScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -192,30 +208,46 @@ public class OperationDetailScript : MonoBehaviour
         }
     }
 
+    public void OnclickResetBtn()
+    {
+        firstOfficeDropdown.value = 0;
+        secondOfficeDropdown.value = 0;
+        netTypeDropdown.value = 0;
+    }
+
     public void OnclickSearchBtn()
     {
         string netText = netTypeDropdown.GetComponentInChildren<Text>().text;
-        netText = netText.Equals("선택") ? string.Empty : netText;
+        netText = netText.Equals("전체") ? string.Empty : netText;
 
+        //StartCoroutine(vehicleDataCenter.OperationDetailDataReceive(firstOfficeCode, secondOfficeCode, netText));
         StartCoroutine(vehicleDataCenter.OperationDetailDataReceive(firstOfficeCode, secondOfficeCode, netText));
     }
 
     public void HandleReceivedData(UnityWebRequest request)
     {
+        int sn = 1;
         Debug.Log("데이터 받고나서 파싱 해야함.");
         foreach (Transform obj in content.GetComponentsInChildren<Transform>())
         {
-            Destroy(obj.gameObject);
+            if(content != obj)
+                Destroy(obj.gameObject);
         }
 
-        var response = JsonUtility.FromJson<OperationDetailList>(request.downloadHandler.text);
-        operationDetailInfoList = new List<OperationDetailInfo>(response.prefabDatas);
+        OperationDetailInfo[] dataArray = JsonHelper1.FromJson<OperationDetailInfo>(request.downloadHandler.text);
+
+        // 3. 파싱된 데이터를 리스트로 저장
+        operationDetailInfoList = new List<OperationDetailInfo>(dataArray);
+        
+        // 4. UI에 데이터를 적용
 
         foreach (OperationDetailInfo ODI in operationDetailInfoList)
         {
             GameObject newObj = Instantiate(operationPrefab, content);
             OperationDetailDataPrefabScript prefabScript = newObj.GetComponent<OperationDetailDataPrefabScript>();
-            prefabScript.SetData(ODI);
+            prefabScript.SetData(sn, ODI);
+            sn++;
         }
+        sn = 1;
     }
 }

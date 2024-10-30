@@ -4,20 +4,55 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 
+
+
+
+
+
+
+
+[System.Serializable]
+public class ArriveQuantityInfo
+{
+    public string secondOfficeName;
+    public int packageGeneral;
+    public int packageWindow;
+    public int factorQuantity;
+    public int international;
+
+    public ArriveQuantityInfo(string secondOfficeName, int packageGeneral, int packageWindow, int factorQuantity, int international)
+    {
+        this.secondOfficeName = secondOfficeName;
+        this.packageGeneral = packageGeneral;
+        this.packageWindow = packageWindow;
+        this.factorQuantity = factorQuantity;
+        this.international = international;
+    }
+}
+
+[System.Serializable]
+public class ArriveQuantityList
+{
+    public ArriveQuantityInfo[] prefabDatas;
+}
+
 public class ArriveQuantityScript : MonoBehaviour
 {
-    string prefabName = "프리펩 경로/PostQuantityPrefab";
     public VehicleDataCenter vehicleDataCenter;
 
     private string firstOfficeCode = "0005";
     private string secondOfficeCode = string.Empty;
+
+    public GameObject arrivePrefab;
+    private List<ArriveQuantityInfo> arriveQuantityInfoList;
+    public Transform content;
 
     [Header("조회조건")]
     public Dropdown firstOfficeDropdown;
     public Dropdown secondOfficeDropdown;
     public Dropdown startYearDropdown;
     public Dropdown startMonthDropdown;
-    public Dropdown startdayDropdown;
+    public Dropdown startDayDropdown;
     public Dropdown endYearDropdown;
     public Dropdown endMonthDropdown;
     public Dropdown endDayDropdown;
@@ -175,12 +210,102 @@ public class ArriveQuantityScript : MonoBehaviour
         }
     }
 
+    private string TranslationCode(string code)
+    {
+        string officeName = string.Empty;
+
+        switch (code)
+        {
+            case "0100":
+                officeName = "대전우편집중국";
+                break;
+            case "0200":
+                officeName = "청주우편집중국";
+                break;
+            case "0300":
+                officeName = "원주우편집중국";
+                break;
+            case "0400":
+                officeName = "제주우편집중국";
+                break;
+            case "0500":
+                officeName = "수원우편집중국";
+                break;
+            case "0600":
+                officeName = "부천우편집중국";
+                break;
+            case "0700":
+                officeName = "광주우편집중국";
+                break;
+            case "0800":
+                officeName = "의정부우편집중국";
+                break;
+            case "0900":
+                officeName = "고양우편집중국";
+                break;
+            case "1000":
+                officeName = "부산우편집중국";
+                break;
+            case "1100":
+                officeName = "전주우편집중국";
+                break;
+            case "1200":
+                officeName = "동서울우편집중국";
+                break;
+            case "1300":
+                officeName = "성남우편집중국";
+                break;
+            case "1400":
+                officeName = "대구우편집중국";
+                break;
+            case "1500":
+                officeName = "안양우편집중국";
+                break;
+            case "1600":
+                officeName = "강릉우편집중국";
+                break;
+            case "1700":
+                officeName = "창원우편집중국";
+                break;
+            case "1800":
+                officeName = "포항우편집중국";
+                break;
+            case "1900":
+                officeName = "안동우편집중국";
+                break;
+            case "2000":
+                officeName = "울산우편집중국";
+                break;
+            case "2100":
+                officeName = "영암우편집중국";
+                break;
+            case "2200":
+                officeName = "진주우편집중국";
+                break;
+
+        }
+
+        return officeName;
+    }
+
+    public void OnclickResetBtn()
+    {
+        firstOfficeDropdown.value = 0;
+        startYearDropdown.value = 0;
+        startMonthDropdown.value = 0;
+        startDayDropdown.value = 0;
+        endYearDropdown.value = 0;
+        endMonthDropdown.value = 0;
+        endDayDropdown.value = 0;
+    }
 
     public void OnclickSearchBtn()
     {
+        arriveQuantityInfoList = new List<ArriveQuantityInfo>();
+
         string startYearText = startYearDropdown.GetComponentInChildren<Text>().text;
         string startMonthText = startMonthDropdown.GetComponentInChildren<Text>().text;
-        string startDayText = startdayDropdown.GetComponentInChildren<Text>().text;
+        string startDayText = startDayDropdown.GetComponentInChildren<Text>().text;
         string endYearText = endYearDropdown.GetComponentInChildren<Text>().text;
         string endMonthText = endMonthDropdown.GetComponentInChildren<Text>().text;
         string endDayText = endDayDropdown.GetComponentInChildren<Text>().text;
@@ -194,11 +319,100 @@ public class ArriveQuantityScript : MonoBehaviour
         endDate += endDate.Equals(string.Empty) || endDayText.Equals("일") ? string.Empty : "-" + endDayText;
 
         Debug.Log($"관할청 : {firstOfficeCode}, 시작일 : {startDate}, 마감일 : {endDate}");
+        //StartCoroutine(vehicleDataCenter.ArriveQuantityDataReceive(firstOfficeCode, startDate, endDate));
+
+
         StartCoroutine(vehicleDataCenter.ArriveQuantityDataReceive(firstOfficeCode, startDate, endDate));
     }
 
     public void HandleReceivedData(UnityWebRequest response)
     {
-        Debug.Log("데이터 받고나서 파싱 해야함.");
+
+        foreach(Transform obj in content.GetComponentsInChildren<Transform>())
+        {
+            if (content != obj)
+            {
+                Destroy(obj.gameObject);
+            }
+        }
+
+        string dataString = response.downloadHandler.text;
+        bool duplicate = false;
+
+        string[] preGeneralOfficeCode = dataString.Split("\"generalOfficeCode\":");
+        string[] prePackageStatus = dataString.Split("\"packageStatus\":");
+
+        for(int i = 1; i < preGeneralOfficeCode.Length; i++)
+        {
+            int listIndex = 0;
+
+            string[] generalOfficeCode = preGeneralOfficeCode[i].Split(',');
+            string[] packageStatus = prePackageStatus[i].Split("}");
+
+
+            generalOfficeCode[0] = generalOfficeCode[0].Trim('"');
+            packageStatus[0] = packageStatus[0].Trim('"');
+
+            if(arriveQuantityInfoList.Count > 0)
+                for (int j = 0; j < arriveQuantityInfoList.Count; j++)
+                {
+                    //우체국 중복부터 처리해야함
+                    if (generalOfficeCode[0].Equals(arriveQuantityInfoList[j].secondOfficeName))
+                    {
+                        //해당 우체죽 구조체의 물품에 덧샘을 해야함
+                        duplicate = true;
+                        listIndex = j;
+                        break;
+                    }
+                }
+
+            if (duplicate)      //중복되는 코드가 있으면
+            {
+                switch (packageStatus[0])
+                {
+                    case "일반소포":
+                        arriveQuantityInfoList[listIndex].packageGeneral += 1;
+                        break;
+                    case "창구소포":
+                        arriveQuantityInfoList[listIndex].packageWindow += 1;
+                        break;
+                    case "방문소포":
+                        arriveQuantityInfoList[listIndex].factorQuantity += 1;
+                        break;
+                    case "국제특급":
+                        arriveQuantityInfoList[listIndex].international += 1;
+                        break;
+                }
+            }
+            else
+            {
+                switch (packageStatus[0])
+                {
+                    case "일반소포":
+                        arriveQuantityInfoList.Add(new ArriveQuantityInfo(generalOfficeCode[0], 1, 0, 0, 0));
+                        break;
+                    case "창구소포":
+                        arriveQuantityInfoList.Add(new ArriveQuantityInfo(generalOfficeCode[0], 0, 1, 0, 0));
+                        break;
+                    case "방문소포":
+                        arriveQuantityInfoList.Add(new ArriveQuantityInfo(generalOfficeCode[0], 0, 0, 1, 0));
+                        break;
+                    case "국제특급":
+                        arriveQuantityInfoList.Add(new ArriveQuantityInfo(generalOfficeCode[0], 0, 0, 0, 1));
+                        break;
+                }
+            }
+
+
+            duplicate = false;
+        }
+
+        for(int i = 0; i < arriveQuantityInfoList.Count; i++)
+        {
+            GameObject newObj = Instantiate(arrivePrefab, content);
+            ArriveQuantityDataPrefabScript AQDPS = newObj.GetComponent<ArriveQuantityDataPrefabScript>();
+            arriveQuantityInfoList[i].secondOfficeName = TranslationCode(arriveQuantityInfoList[i].secondOfficeName);
+            AQDPS.SetData(arriveQuantityInfoList[i]);
+        }
     }
 }

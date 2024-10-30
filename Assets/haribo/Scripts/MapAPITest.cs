@@ -4,6 +4,7 @@ using System.Net;
 using System.Runtime.InteropServices;
 using OSMClient;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
@@ -114,8 +115,8 @@ public class MapAPITest : MonoBehaviour
 
     private void Start()
     {
-        destLatInput.text = 36.350457876854506.ToString(); //IMC위치 
-        destLonInput.text = 127.3848009109497.ToString();
+        destLatInput.text = 36.270221968472264.ToString(); //IMC위치 
+        destLonInput.text = 127.47373892497943.ToString();
     }
 
     public void OnClickExternalNaverMap()
@@ -184,7 +185,7 @@ public class MapAPITest : MonoBehaviour
     IEnumerator _MapLoader(float longitude, float latitude)
     {
         // 요청 URL 생성
-        string str = $"http://192.168.0.168:3000/api/map/naverMap/getLocation?w={mapWidth}&h={mapHeight}&center={longitude},{latitude}&level={level}";
+        string str = $"http://192.168.0.140:3000/api/map/naverMap/getLocation?w={mapWidth}&h={mapHeight}&center={longitude},{latitude}&level={level}";
 
         UnityWebRequest request = UnityWebRequestTexture.GetTexture(str);
 
@@ -207,7 +208,7 @@ public class MapAPITest : MonoBehaviour
     }
     IEnumerator _DistanceLoader(float longitude, float latitude)
     {
-        string str = $"http://192.168.0.168:3000/api/map/naverMap/getDistance?w={mapWidth}&h={mapHeight}&center={longitude},{latitude}&level={level}";
+        string str = $"http://192.168.0.140:3000/api/map/naverMap/getDistance?w={mapWidth}&h={mapHeight}&center={longitude},{latitude}&level={level}";
 
         UnityWebRequest request = UnityWebRequestTexture.GetTexture(str);
 
@@ -282,12 +283,13 @@ public class MapAPITest : MonoBehaviour
     //Haribo: 출발지, 도착지 정보로 길찾기 경로 데이터를 정제
     public IEnumerator _GetOSRMRoute(float originLon, float originLat, float destLon, float destLat)
     {
+        //경유지 추가 가능!!
         string loc = $"{originLon},{originLat};{destLon},{destLat}";
         //alternatives=true 부분을 없애면 대체경로없이 하나경로만 뜸 / overview=full: 해야 전체 경로 다 볼수있음 //출처: https://project-osrm.org/docs/v5.5.1/api/#nearest-service
         //string url = $"http://localhost:5000/route/v1/driving/{loc}?alternatives=true&overview=full";
         //http://localhost:5000/route/v1/driving/{loc}?steps=true&overview=full
         //string url = $"http://localhost:5000/route/v1/driving/127.95576518079,37.40011999044;127.4734,36.27069?steps=true";
-        string url = $"http://192.168.0.21:5000/route/v1/driving/{loc}?steps=true&overview=full";
+        string url = $"http://192.168.0.140:5000/route/v1/driving/{loc}?steps=true&overview=full";
         //string url = $"http://192.168.0.168:5000/route/v1/driving/{loc}?alternatives=false&overview=full";
 
         using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
@@ -381,6 +383,16 @@ public class MapAPITest : MonoBehaviour
         CarInfoFather.enabled = true;
     }
 
+    public void carInfoClose()
+    {
+        CarInfoFather.gameObject.SetActive(false);
+    }
+
+    public void CarInfoOpen()
+    {
+        CarInfoFather.gameObject.SetActive(true);
+    }
+
     //OSRM길찾기서버에서 해당차량 위치한 도로명 이름 무엇인지 가져오는 첫번째 함수
     private string GetFirstRoadName(Leg[] legs)
     {
@@ -411,7 +423,6 @@ public class MapAPITest : MonoBehaviour
     private void DisplayRoadName(string roadName)
     {
         roadNameText.text = $"현재위치 : {roadName}";
-
     }
 
     //routeResponse.routes[0].geometry 부분 디코딩 해주는 함수  //C#에서 디코딩하는법 출처: https://gist.github.com/shinyzhu/4617989

@@ -478,7 +478,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: -35}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 1300, y: 35}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &5997241635685745457
 MonoBehaviour:
@@ -487,7 +487,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3429032135900952423}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
   m_Name: 
@@ -532,6 +532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e331a2fd968756044bad891c22bfac09, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sn_Text: {fileID: 932331958811172136}
   netType_Text: {fileID: 7313562257140456467}
   carNum_Text: {fileID: 5875417124300050908}
   driverPhoneNum_Text: {fileID: 4978900056414625456}
